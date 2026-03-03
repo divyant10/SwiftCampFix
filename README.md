@@ -3,7 +3,7 @@
 SwiftCampFix is a live college infrastructure complaint management system built to digitize and streamline campus issue reporting and resolution tracking.
 
 🌐 **Live Application:**  
-👉 https://swiftcampfix.free.nf/SwiftCampFix/frontend/index.php
+👉 https://swiftcampfix.free.nf
 
 ---
 
