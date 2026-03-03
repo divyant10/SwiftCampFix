@@ -1,0 +1,160 @@
+/* Base */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #bfbfbf; /* grey outer area from screenshot */
+}
+
+/* Page frame with grey border & rounded corners */
+.page {
+  padding: 28px;              /* space around the white frame */
+}
+.frame {
+  position: relative;
+  background: #ffffff;
+  border: 6px solid #cfcfcf;  /* GREY BORDER like in image */
+  border-radius: 28px;
+  min-height: calc(100vh - 56px);
+  overflow: hidden;
+  padding: 28px;
+  /* BACKGROUND MESH IMAGE */
+  background-image: url("background-mesh.png"); /* MESH IMAGE */
+  background-repeat: repeat;
+  background-size: 540px auto; /* tweak if your mesh tile is different */
+  background-position: center;
+}
+
+/* Topbar */
+.topbar {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 28px;
+  padding: 4px 8px;
+}
+.brand {
+  display: flex; align-items: center; gap: 12px;
+}
+.brand-logo {
+  height: 50px;               /* adjust to your logo proportions */
+  display: block;
+}
+.nav {
+  display: flex; gap: 36px;
+}
+.nav a {
+  text-decoration: none;
+  color: #111;
+  font-weight: 600;
+  letter-spacing: .2px;
+}
+.btn-login {
+  padding: 12px 26px;
+  font-weight: 700;
+  border-radius: 26px;
+  border: 3px solid #000;
+  background: #b9f3ff;        /* cyan pill */
+  cursor: pointer;
+}
+
+/* Hero layout */
+.hero {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr; /* left text / right art */
+  align-items: center;
+  gap: 26px;
+  margin-top: 28px;
+}
+.hero-left { padding: 10px 8px 0 8px; }
+.hero-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hero-art {
+  width: 520px;               /* RIGHT IMAGE SIZE */
+  max-width: 100%;
+  height: auto;
+}
+
+/* Headline + paragraphs */
+.headline {
+  line-height: 1.05;
+  font-size: 74px;            /* big like screenshot */
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin: 12px 0 18px;
+}
+.headline .blk { color: #111; }
+.headline .red { color: #ff4b4b; }
+.subtext {
+  max-width: 720px;
+  color: #212121;
+  font-size: 20px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+/* Feature row */
+.feature-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;                   /* spacing between the three boxes */
+}
+
+/* Feature card — icon LEFT, text RIGHT */
+.feature-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;                   /* space between icon & text */
+  text-decoration: none;
+  background: #aef6ff;         /* cyan tile like screenshot */
+  border: 3px solid #000;      /* thick black border */
+  border-radius: 22px;
+  padding: 18px 22px;
+  min-height: 112px;
+  transition: transform .06s ease, box-shadow .06s ease;
+  box-shadow: 0 2px 0 #000;    /* subtle button-y feel */
+}
+.feature-card:active { transform: translateY(1px); box-shadow: 0 1px 0 #000; }
+
+.feat-ico {
+  width: 54px;                 /* ICON SIZE (left aligned) */
+  height: 54px;
+  object-fit: contain;
+  flex: 0 0 54px;
+}
+
+.feat-text { color: #111; }
+.feat-title {
+  font-weight: 800;
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+.feat-sub {
+  font-size: 16px;
+  color: #222;
+  line-height: 1.35;
+}
+
+/* Small alignment polish for first column width on large screens */
+@media (min-width: 1200px) {
+  .hero { grid-template-columns: 1.1fr .9fr; }
+}
+
+/* Responsive tweaks */
+@media (max-width: 1024px) {
+  .headline { font-size: 58px; }
+  .subtext { font-size: 18px; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { order: -1; margin-bottom: 16px; }
+  .feature-row { grid-template-columns: 1fr; }
+  .feature-card { min-height: 96px; }
+}
+@media (max-width: 560px) {
+  .headline { font-size: 42px; }
+  .btn-login { padding: 10px 20px; }
+  .nav { gap: 18px; }
+}

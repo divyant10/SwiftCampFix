@@ -1,0 +1,167 @@
+/* Center/right layout for the tracking view */
+.track-main{
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Header with back arrow + title */
+.track-head{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 4px;
+}
+.back-arrow{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid #000;
+  text-decoration: none;
+  color: #000;
+  font-weight: 900;
+  line-height: 1;
+}
+.track-head h1{
+  font-weight: 900;
+  font-size: 28px;
+  margin: 0;
+}
+
+/* Card container (matches your dashboard style) */
+.track-card{
+  background:#f8f8f8;
+  border:3px solid #000;
+  border-radius:26px;
+  padding:22px 26px 24px;
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.02);
+  min-height: 360px;
+}
+
+/* Complaint meta text */
+.meta{
+  font-weight:700;
+  margin: 6px 0 22px;
+}
+
+/* ===== Timeline ===== */
+.timeline{
+  list-style:none;
+  margin: 8px 0 28px;
+  padding: 0 8px;
+  display:flex;
+  align-items:center;
+  gap: 56px;               /* space between steps */
+  position: relative;
+}
+
+/* connector line between steps */
+.timeline .step{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  min-width: 78px;
+}
+
+/* green line going to the next step – drawn from this step forward */
+.timeline .step::after{
+  content:"";
+  position:absolute;
+  top: 14px;               /* align with dot center */
+  left: 28px;              /* start shortly after dot */
+  width: 140px;            /* segment length */
+  height: 4px;
+  background:#24b24b;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+/* hide line on last step */
+.timeline .step:last-child::after{ display:none; }
+
+/* line color states: done = green, current/todo = grey */
+.timeline .step.todo::after,
+.timeline .step.current::after{
+  background:#c9c9c9;
+}
+
+/* the dot */
+.timeline .dot{
+  width: 28px;
+  height: 28px;
+  border-radius:50%;
+  background:#24b24b;        /* done default */
+  border:3px solid #24b24b;
+  position:relative;
+  z-index:1;                 /* above connector */
+}
+
+/* check mark for DONE */
+.timeline .step.done .dot::after{
+  content:"✓";
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font-weight:900;
+  font-size:16px;
+}
+
+/* CURRENT = white center with green ring */
+.timeline .step.current .dot{
+  background:#fff;
+  border-color:#24b24b;
+}
+
+/* TODO = grey dot */
+.timeline .step.todo .dot{
+  background:#e9e9e9;
+  border-color:#c9c9c9;
+}
+
+/* label below each step */
+.timeline .label{
+  font-size:13px;
+  font-weight:800;
+  color:#333;
+  text-align:center;
+  width: 90px;
+}
+
+/* Current status pill */
+.status-line{
+  font-weight:800;
+  margin-top: 6px;
+}
+.status-pill{
+  display:inline-block;
+  margin-left:6px;
+  padding:4px 10px;
+  border-radius:999px;
+  border:2px solid #000;
+  font-weight:900;
+}
+.status-pill.pending{ color:#e31e24; border-color:#e31e24; }
+.status-pill.inprogress{ color:#F5B443; border-color:#F5B443; }
+.status-pill.resolved{ color:#11B458; border-color:#11B458; }
+
+/* Responsive */
+@media (max-width: 980px){
+  .timeline{ gap:36px; }
+  .timeline .step::after{ width: 100px; }
+}
+@media (max-width: 720px){
+  .timeline{
+    gap:22px;
+  }
+  .timeline .step::after{ width: 74px; }
+  .label{ width: 70px; }
+}

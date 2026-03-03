@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Swift CampFix — Sign Up</title>
+
+  <!-- ✅ Correct CSS Path -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    :root {
+      --card-width: 360px;
+      --pill-width: 340px;
+      --pill-radius: 28px;
+      --pill-border: 4px;
+      --avatar-size: 110px;
+      --center-nudge: -40px;
+    }
+
+    .signup-wrap {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      min-height: 100%;
+      padding-top: 24px;
+    }
+
+    .signup-card {
+      width: var(--card-width);
+      max-width: calc(100% - 40px);
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      margin-top: var(--center-nudge);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .site-logo {
+      display: block;
+      width: 220px;
+      height: auto;
+      object-fit: contain;
+      margin: 4px auto 8px auto;
+    }
+
+    /* ✅ Updated user icon */
+    .avatar {
+      width: var(--avatar-size);
+      height: var(--avatar-size);
+      border-radius: 50%;
+      background-image: url('assets/images/user-icon.png'); /* ← updated path */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #f2f2f2;
+      box-shadow: 0 0 0 8px #fff, 0 0 0 10px #000;
+      margin: 6px auto 10px auto;
+      overflow: hidden;
+    }
+
+    .pill {
+      width: var(--pill-width);
+      border-radius: var(--pill-radius);
+      background: #d9d9d9;
+      border: var(--pill-border) solid #000;
+      margin: 6px 0;
+      padding: 8px 12px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pill input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 6px 4px;
+      font-size: 15px;
+      text-align: center;
+      color: #333;
+    }
+
+    .pill input::placeholder {
+      color: #777;
+    }
+
+    .signup-btn {
+      margin: 6px auto 0 auto;
+      width: 120px;
+      padding: 10px 20px;
+      border-radius: 22px;
+      background: #ff4b4b;
+      color: #fff;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      transition: background 0.2s ease;
+    }
+
+    .signup-btn:hover {
+      background: #e33b3b;
+    }
+
+    .small-link {
+      display: block;
+      width: var(--pill-width);
+      margin: 6px auto;
+      text-decoration: underline;
+      color: #3b00ff;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 560px) {
+      :root {
+        --card-width: 320px;
+        --pill-width: 300px;
+        --avatar-size: 90px;
+        --center-nudge: -20px;
+      }
+      .site-logo {
+        width: 180px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="frame">
+      <div class="signup-wrap">
+        <div class="signup-card">
+          <!-- ✅ Website Logo -->
+          <img src="assets/images/logo.png" alt="Swift CampFix" class="site-logo">
+
+          <!-- ✅ User Icon -->
+          <div class="avatar" aria-hidden="true"></div>
+
+          <!-- ✅ Connected to backend signup.php -->
+          <form action="../backend/config/signup.php" method="POST" autocomplete="off">
+            
+            <label class="pill">
+              <input type="text" name="username" placeholder="Username" required>
+            </label>
+
+            <label class="pill">
+              <input type="password" name="password" placeholder="Password" required>
+            </label>
+
+            <label class="pill">
+              <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+            </label>
+
+            <button class="signup-btn" type="submit">SIGN UP</button>
+
+            <a href="login.html" class="small-link">Already have an account? Login</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

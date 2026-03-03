@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Swift CampFix — Login</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    :root {
+      --card-width: 360px;
+      --pill-width: 340px;
+      --pill-radius: 28px;
+      --pill-border: 4px;
+      --avatar-size: 110px;
+      --center-nudge: -40px;
+    }
+
+    .login-wrap {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      min-height: 100%;
+      padding-top: 24px;
+    }
+
+    .login-card {
+      width: var(--card-width);
+      max-width: calc(100% - 40px);
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      margin-top: var(--center-nudge);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .site-logo {
+      display: block;
+      width: 220px;
+      height: auto;
+      object-fit: contain;
+      margin: 4px auto 8px auto;
+    }
+
+    /* ✅ User Icon (updated) */
+    .avatar {
+      width: var(--avatar-size);
+      height: var(--avatar-size);
+      border-radius: 50%;
+      background-image: url('assets/images/user-icon.png'); /* ← updated image path */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #f2f2f2;
+      box-shadow: 0 0 0 8px #fff, 0 0 0 10px #000;
+      margin: 6px auto 10px auto;
+      overflow: hidden;
+    }
+
+    .pill {
+      width: var(--pill-width);
+      border-radius: var(--pill-radius);
+      background: #d9d9d9;
+      border: var(--pill-border) solid #000;
+      margin: 6px 0;
+      padding: 8px 12px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pill input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 6px 4px;
+      font-size: 15px;
+      text-align: center;
+      color: #333;
+    }
+
+    .pill input::placeholder {
+      color: #777;
+    }
+
+    .inline-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: var(--pill-width);
+      margin: 2px auto 6px auto;
+      font-size: 13px;
+    }
+
+    .small-link {
+      display: block;
+      width: var(--pill-width);
+      margin: 4px auto 6px auto;
+      text-decoration: underline;
+      color: #3b00ff;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .login-btn {
+      margin: 4px auto 0 auto;
+      width: 120px;
+      padding: 10px 20px;
+      border-radius: 22px;
+      background: #ff4b4b;
+      color: #fff;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      transition: background 0.2s ease;
+    }
+
+    .login-btn:hover {
+      background: #e33b3b;
+    }
+
+    .ghost-link {
+      display: block;
+      width: var(--pill-width);
+      margin: 8px auto 0 auto;
+      text-decoration: none;
+      text-align: center;
+      font-size: 13px;
+      color: #333;
+    }
+
+    @media (max-width: 560px) {
+      :root {
+        --card-width: 320px;
+        --pill-width: 300px;
+        --avatar-size: 90px;
+        --center-nudge: -20px;
+      }
+      .site-logo {
+        width: 180px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="frame">
+      <div class="login-wrap">
+        <div class="login-card">
+          <!-- Website Logo -->
+          <img src="assets/images/logo.png" alt="Swift CampFix Logo" class="site-logo">
+
+          <!-- ✅ User Icon -->
+          <div class="avatar" aria-hidden="true"></div>
+
+          <!-- ✅ Login Form -->
+          <form id="loginForm" action="../backend/config/login.php" method="POST" autocomplete="off" novalidate>
+            
+            <label class="pill">
+              <input type="text" name="username" placeholder="Username" required autofocus>
+            </label>
+
+            <label class="pill">
+              <input id="pwd" type="password" name="password" placeholder="Password" required>
+            </label>
+
+            <div class="inline-row">
+              <label>
+                <input type="checkbox" id="togglePwd"> Show password
+              </label>
+            </div>
+
+            <a href="signup.html" class="small-link">Don't have an account?</a>
+
+            <button class="login-btn" type="submit">LOGIN</button>
+
+            <a class="ghost-link" href="index.php">← Back to Home</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ✅ Show/Hide password
+    document.getElementById('togglePwd')?.addEventListener('change', function () {
+      const p = document.getElementById('pwd');
+      p.type = this.checked ? 'text' : 'password';
+    });
+
+    // ✅ Prevent double submit
+    const form = document.getElementById('loginForm');
+    form.addEventListener('submit', function () {
+      const btn = this.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Logging in...';
+    });
+  </script>
+</body>
+</html>

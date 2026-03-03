@@ -1,0 +1,106 @@
+/* Admin tweaks build on top of studentdashboard.css */
+
+/* Tighten stat card spacing (matches the admin mock visual) */
+.stat-tight .stat-title.center{
+  text-align:center;
+  line-height: 1.15;
+}
+
+/* Space between stats and CTA */
+.admin-cta-wrap{
+  margin: 8px 0 18px;
+}
+
+/* Admin CTA style */
+.admin-cta{
+  display:inline-block;
+  padding: 10px 18px;
+  border-radius: 10px;
+  background:#2b78ff;
+  color:#fff;
+  font-weight:900;
+  text-decoration:none;
+  box-shadow:0 8px 0 rgba(0,0,0,0.18);
+  transform: translateY(0);
+  transition: transform .1s ease, box-shadow .1s ease;
+}
+.admin-cta:active{
+  transform: translateY(2px);
+  box-shadow:0 6px 0 rgba(0,0,0,0.18);
+}
+
+/* ===== Notifications block (left column) ===== */
+.notif{
+  margin-top: 14px;
+  background:#efefef;
+  border:3px solid #000;
+  border-radius:18px;
+  padding: 12px 12px 10px;
+}
+.notif-head{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:8px;
+}
+.notif-title{
+  font-weight:900;
+  letter-spacing:.3px;
+}
+.notif-arrow{ font-weight:900; }
+
+.notif-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.notif-item{
+  position:relative;
+  background:#fff;
+  border:3px solid #000;
+  border-radius:10px;
+  padding:8px 36px 8px 10px;
+}
+.notif-top{
+  font-weight:900;
+  font-size: 14px;
+}
+.notif-sub{
+  font-weight:700;
+  font-size: 12px;
+  color:#555;
+  margin-top:2px;
+}
+.notif-close{
+  position:absolute;
+  right:6px; top:4px;
+  width:24px; height:24px;
+  border-radius:50%;
+  border:2px solid #000;
+  font-weight:900;
+  line-height: 1;
+  background:#fff;
+  cursor:pointer;
+}
+/* Dismiss animation */
+.notif-item {
+  transition: opacity .18s ease, transform .18s ease, margin .18s ease, padding .18s ease, border-width .18s ease, height .18s ease;
+}
+
+.notif-item.removing {
+  opacity: 0;
+  transform: translateY(-4px);
+  margin: 0 !important;
+  padding: 0 !important;
+  border-width: 0 !important;
+  height: 0 !important;
+  overflow: hidden;
+}
+
+/* Responsive nuance */
+@media (max-width:1100px){
+  .admin-cta-wrap{ margin-top: 4px; }
+}
+@media (max-width:720px){
+  .notif{ display:none; } /* hide notifications on small screens if needed */
+}

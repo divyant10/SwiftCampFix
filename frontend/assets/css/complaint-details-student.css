@@ -1,0 +1,81 @@
+/* complaint-details-student.css
+   Styles that only affect the student complaint details page.
+   These keep the same visual style as the dashboard and
+   create large yellow stars with black stroke matching the mock.
+*/
+
+/* keep layout similar to admin file */
+.details-card{ position:relative; z-index:1; padding-bottom:24px; }
+.details-head{ display:flex; align-items:center; gap:14px; margin-bottom:8px; }
+.details-head .back-arrow{
+  display:inline-grid; place-items:center; width:34px; height:34px;
+  border-radius:50%; border:2px solid #000; color:#000; text-decoration:none; font-weight:900;
+}
+.details-head h1{ font-weight:900; font-size:28px; margin:0; }
+
+/* meta & labels */
+.meta-grid{ display:grid; gap:6px; margin:10px 0 14px; }
+.lbl{ font-weight:900; margin:12px 0 6px; }
+
+/* read-only title styled like input (same look as other pages) */
+.readout{
+  border:3px solid #000; border-radius:12px; background:#fff;
+  padding:12px 14px; font-weight:700;
+  max-width:100%;
+  box-sizing:border-box;
+}
+
+/* timeline (reuse from admin) */
+.timeline{
+  list-style:none; display:flex; align-items:center; gap:56px;
+  margin:10px 0 16px; padding:0 8px; position:relative;
+}
+.step{ position:relative; display:flex; flex-direction:column; align-items:center; gap:8px; min-width:88px; }
+.step .label{ font-size:13px; font-weight:800; color:#333; text-align:center; }
+/* connector */
+.step::after{ content:""; position:absolute; top:14px; left:28px; width:140px; height:4px; background:#c9c9c9; transform: translateY(-50%); z-index:0; }
+.step:last-child::after{ display:none; }
+.dot{ width:28px; height:28px; border-radius:50%; border:3px solid #c9c9c9; background:#e9e9e9; position:relative; z-index:1; }
+.step.done .dot{ background:#24b24b; border-color:#24b24b; }
+.step.done .dot::after{ content:"✓"; position:absolute; inset:0; display:grid; place-items:center; color:#fff; font-weight:900; font-size:16px; }
+.step.done::after{ background:#24b24b; }
+.step.current .dot{ background:#fff; border-color:#24b24b; }
+
+/* Feedback textarea: match title style (same font/size/weight) */
+.feedback-text{
+  border:3px solid #000; border-radius:12px; background:#fff;
+  padding:12px 14px; font-weight:700; font-family:inherit; /* inherit so it matches the title */
+  width:100%; box-sizing:border-box;
+  min-height:48px;
+}
+
+/* stars: big, yellow when filled, black stroke, hover + filled states */
+/* container */
+.stars-wrapper{ display:flex; align-items:center; gap:10px; margin-top:8px; }
+/* each button acts like a star */
+.star{
+  background:transparent; border:0; padding:0; cursor:pointer;
+  width:48px; height:48px; display:inline-grid; place-items:center;
+}
+/* svg sizing */
+.star-svg{ width:40px; height:40px; fill:transparent; stroke:#111; stroke-width:1.8; transition:fill .12s ease, transform .08s ease; }
+/* outline (unfilled) */
+.star:not(.filled) .star-svg{ fill:transparent; stroke:#111; }
+/* filled (yellow with black outline) */
+.star.filled .star-svg{ fill:#ffd02b; stroke:#111; }
+
+/* disable pointer when stars are not allowed */
+.stars-wrapper[data-enabled="0"] .star{ cursor:default; opacity:.95; }
+
+/* submit button aligns with mock */
+.update-btn{ background:#2b78ff; color:#fff; padding:10px 16px; border-radius:8px; border:0; font-weight:800; box-shadow:0 8px 0 rgba(0,0,0,0.12); }
+.update-btn[disabled]{ opacity:.5; cursor:not-allowed; box-shadow:none; transform:none; }
+
+/* small note texts */
+.note{ color:#666; font-weight:700; font-size:14px; }
+.note.success{ color:#118a2a; font-weight:900; }
+
+
+/* responsive tweaks */
+@media (max-width:980px){ .timeline{ gap:36px; } .step::after{ width:100px; } }
+@media (max-width:720px){ .timeline{ gap:22px; } .step{ min-width:72px; } .step::after{ width:74px; } .stars-wrapper{ gap:8px; } }

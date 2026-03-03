@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Feedback — Swift CampFix</title>
+
+  <!-- keep your global files -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="studentdashboard.css">
+
+  <!-- page-specific small CSS (keeps visual consistent with the rest of the project) -->
+  <style>
+  /* ---------- layout + heading ---------- */
+  .details-card{ position:relative; z-index:1; padding-bottom:28px; }
+  .details-head{ display:flex; align-items:center; gap:14px; margin-bottom:8px; }
+  .details-head .back-arrow{
+    display:inline-grid; place-items:center; width:34px; height:34px;
+    border-radius:50%; border:2px solid #000; color:#000; text-decoration:none; font-weight:900;
+  }
+  .details-head h1{ font-weight:900; font-size:34px; margin:0; }
+
+  .container-inner{ padding: 8px 18px 34px; } /* inner padding inside the big right card */
+
+  /* ---------- labels and inputs ---------- */
+  .lbl{ display:block; font-weight:900; font-size:18px; margin:14px 0 8px; color:#111; }
+
+  /* textarea that matches the readout / title look (bold font like other inputs) */
+  .feedback-text{
+    border:3px solid #000; border-radius:12px; background:#fff;
+    padding:14px 16px; font-weight:700; font-family:inherit;
+    width:100%; box-sizing:border-box; min-height:88px; font-size:15px;
+    resize:vertical;
+  }
+
+  /* ---------- star rating ---------- */
+  .rating-row{ margin-top:12px; display:flex; flex-direction:column; gap:10px; align-items:flex-start; }
+  .stars{
+    display:flex; gap:10px; align-items:center;
+  }
+
+  /* star button */
+  .star{
+    width:48px; height:48px; display:inline-grid; place-items:center;
+    padding:0; border:0; background:transparent; cursor:pointer;
+    transition: transform .06s ease;
+  }
+  .star:active{ transform:translateY(1px); }
+
+  .star svg{ width:40px; height:40px; display:block; stroke:#111; stroke-width:1.6; fill:transparent; transition: fill .12s ease, transform .08s ease; }
+  .star.filled svg{ fill:#ffd02b; stroke:#000; }   /* filled appearance: yellow + black outline */
+  .star.hover svg{ fill:#ffe47a; }                 /* hover preview slightly lighter */
+
+  /* ---------- submit button ---------- */
+  .submit-row{ margin-top:18px; display:flex; align-items:center; gap:14px; }
+  .btn-submit{
+    --blue:#2b78ff;
+    background:var(--blue);
+    color:#fff;
+    font-weight:900;
+    border-radius:10px;
+    padding:10px 18px;
+    border:0;
+    box-shadow:0 8px 0 rgba(0,0,0,0.18);
+    cursor:pointer;
+  }
+  .btn-submit:active{ transform:translateY(2px); box-shadow:0 6px 0 rgba(0,0,0,0.18); }
+
+  .msg{
+    font-weight:800;
+    color:#118a2a;
+    display:none;
+  }
+  .msg.visible{ display:block; }
+
+  /* small instructional text (matches mock tone) */
+  .note{ color:#666; font-weight:700; font-size:14px; margin-left:6px; }
+
+  /* responsive */
+  @media (max-width:900px){
+    .details-head h1{ font-size:28px; }
+    .star{ width:40px; height:40px; }
+    .star svg{ width:32px; height:32px; }
+  }
+  </style>
+</head>
+<body class="role-student">
+  <div class="page">
+    <div class="frame">
+      <div class="dash-shell">
+        <div class="dash-glow" aria-hidden="true"></div>
+
+        <!-- LEFT (unchanged layout) -->
+        <aside class="dash-side">
+          <div class="side-card">
+            <div class="side-avatar"><img src="user-icon.png" alt="Avatar"></div>
+            <div class="side-name">DIVYANT MAYANK</div>
+            <div class="side-role">STUDENT</div>
+          </div>
+
+          <nav class="side-nav">
+            <a href="student-dashboard.php" class="side-link">REGISTER COMPLAINTS</a>
+            <a href="track-complaints.php" class="side-link">TRACK COMPLAINTS</a>
+            <a href="#" class="side-link side-logout">LOG OUT</a>
+          </nav>
+        </aside>
+
+        <!-- RIGHT (main) -->
+        <main class="dash-main details-card">
+          <header class="details-head">
+            <a href="student-dashboard.php" class="back-arrow" aria-label="Back">←</a>
+            <h1>COMPLAINT DETAILS</h1>
+          </header>
+
+          <!-- inner content area (keeps the large rounded card look from global css) -->
+          <div class="container-inner">
+            <!-- Feedback label + textarea -->
+            <label class="lbl" for="feedback">Feedback:</label>
+            <textarea id="feedback" class="feedback-text" placeholder="Write your feedback..."></textarea>
+
+            <!-- Rating -->
+            <div class="rating-row">
+              <label class="lbl">Rating:</label>
+
+              <div class="stars" role="radiogroup" aria-label="Rating">
+                <!-- 5 stars. buttons used for better accessibility -->
+                <button class="star" type="button" data-value="1" aria-label="1 star" title="1 star">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .587l3.668 7.431L23.6 9.75l-5.8 5.66L19.468 24 12 19.897 4.532 24l1.667-8.59L.4 9.75l7.932-1.732z"/></svg>
+                </button>
+                <button class="star" type="button" data-value="2" aria-label="2 stars" title="2 stars">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .587l3.668 7.431L23.6 9.75l-5.8 5.66L19.468 24 12 19.897 4.532 24l1.667-8.59L.4 9.75l7.932-1.732z"/></svg>
+                </button>
+                <button class="star" type="button" data-value="3" aria-label="3 stars" title="3 stars">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .587l3.668 7.431L23.6 9.75l-5.8 5.66L19.468 24 12 19.897 4.532 24l1.667-8.59L.4 9.75l7.932-1.732z"/></svg>
+                </button>
+                <button class="star" type="button" data-value="4" aria-label="4 stars" title="4 stars">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .587l3.668 7.431L23.6 9.75l-5.8 5.66L19.468 24 12 19.897 4.532 24l1.667-8.59L.4 9.75l7.932-1.732z"/></svg>
+                </button>
+                <button class="star" type="button" data-value="5" aria-label="5 stars" title="5 stars">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .587l3.668 7.431L23.6 9.75l-5.8 5.66L19.468 24 12 19.897 4.532 24l1.667-8.59L.4 9.75l7.932-1.732z"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- submit + message -->
+            <div class="submit-row">
+              <button id="submitBtn" class="btn-submit" type="button">SUBMIT</button>
+              <div id="successMsg" class="msg">Thanks — your feedback has been received.</div>
+              <div class="note">Feedback will be sent to admins.</div>
+            </div>
+          </div>
+        </main>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- small JS for star UI & submit behavior (well commented) -->
+  <script>
+  /**
+   * Star rating UI + Submit handling
+   * - Small, self-contained script that:
+   *   1) toggles .filled on stars for hover/preview and click
+   *   2) stores the selected rating in memory (so you can send it to backend)
+   *   3) handles the SUBMIT click and shows a success message (demo)
+   *
+   * To integrate with backend:
+   *  - replace the submit handler to POST the feedback + rating to your endpoint
+   *  - on success redirect or show a success state
+   */
+  (function () {
+    const stars = Array.from(document.querySelectorAll('.star'));
+    const textarea = document.getElementById('feedback');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMsg = document.getElementById('successMsg');
+
+    // current selected rating (0..5)
+    let rating = 0;
+
+    // helper: paint stars up to value
+    function paint(v){
+      stars.forEach((s, i) => {
+        s.classList.toggle('filled', (i < v));
+      });
+    }
+
+    // wire hover (preview)
+    stars.forEach((btn) => {
+      const val = Number(btn.dataset.value);
+
+      btn.addEventListener('mouseenter', () => paint(val));
+      btn.addEventListener('mouseleave', () => paint(rating));
+
+      // click selects rating
+      btn.addEventListener('click', () => {
+        rating = val;
+        paint(rating);
+        // optional: set aria-checked attributes or update a hidden input if you POST
+      });
+    });
+
+    // submit handler (demo). Replace with actual fetch/post when backend ready.
+    submitBtn.addEventListener('click', () => {
+      const feedbackText = textarea.value.trim();
+
+      // Basic client-side validation demo (optional)
+      if (!feedbackText && rating === 0) {
+        // require at least one of text or rating
+        alert('Please provide feedback text or a rating before submitting.');
+        return;
+      }
+
+      // Demo: show success message and clear UI
+      successMsg.classList.add('visible');
+
+      // visually clear input (optional) — comment out if you want the content to remain
+      textarea.value = '';
+      rating = 0;
+      paint(0);
+
+      // If you want to actually send to server:
+      // fetch('/api/complaints/123/feedback', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ feedback: feedbackText, rating }) })
+      //   .then(r=>r.json()).then(...).catch(...);
+    });
+  })();
+  </script>
+</body>
+</html>

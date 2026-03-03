@@ -1,0 +1,242 @@
+/* ====== RESET OLD BACKGROUND MESH ====== */
+.page, .frame { background: none !important; }
+body {
+  background: #bfbfbf;  /* subtle grey outer edge like the mock */
+  margin: 0;
+}
+
+/* ====== GRADIENT BACKGROUND FRAME ====== */
+.frame {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;        /* clip to rounded corners */
+  min-height: 92vh;        /* fits full page nicely */
+}
+.frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("C:\xampp\htdocs\SwiftCampFix\frontend\assets\images\dash-bg.png") center/cover no-repeat; /* your gradient image */
+  z-index: -1;            /* behind everything */
+}
+
+/* ====== DASHBOARD LAYOUT ====== */
+.dash-shell {
+  position: relative;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 34px;
+  padding: 28px 28px 32px;
+}
+
+/* blue corner glow */
+.dash-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(1200px 540px at 95% 0%, rgba(0,137,255,0.28), transparent 60%),
+    radial-gradient(900px 500px at 0% 100%, rgba(36,186,170,0.18), transparent 60%);
+  border-radius: inherit;
+  z-index: 0;
+}
+
+/* ====== SIDEBAR ====== */
+.dash-side { position: relative; z-index: 1; }
+
+.side-card {
+  background: #efefef;
+  border: 3px solid #000;
+  border-radius: 22px;
+  padding: 18px 16px 14px;
+  box-shadow: 0 10px 14px rgba(0,0,0,0.2);
+}
+
+.side-avatar {
+  width: 86px; height: 86px;
+  border-radius: 50%;
+  background: #000;
+  margin: 2px auto 12px;
+  box-shadow: 0 0 0 10px #fff, 0 0 0 12px #000;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.side-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.avatar-dot { width: 32px; height: 32px; border-radius: 50%; background: #fff; display: block; }
+
+.side-name {
+  text-align: center;
+  font-weight: 900;
+  font-size: 22px;
+  letter-spacing: .6px;
+}
+.side-role {
+  text-align: center;
+  color: #E41D1D;
+  font-weight: 900;
+  font-size: 18px;
+  margin-top: 4px;
+}
+
+/* Hide role if backend hasn’t filled it yet */
+.side-role:empty { display: none; }
+
+.side-nav {
+  background: #e7e7e7;
+  border: 3px solid #000;
+  border-radius: 18px;
+  margin-top: 14px;
+  padding: 18px 16px;
+}
+.side-link {
+  display: block;
+  font-weight: 900;
+  color: #111;
+  text-decoration: none;
+  margin: 10px 0;
+}
+.side-logout { color: #ff3232; }
+
+/* ====== MAIN CARD ====== */
+.dash-main {
+  position: relative;
+  z-index: 1;
+  background: url("dash-bg.png");
+  border: 3px solid #000;
+  border-radius: 26px;
+  padding: 24px 26px 22px;
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.02);
+}
+
+.main-head h1 {
+  font-weight: 900;
+  font-size: 32px;
+  margin: 4px 0 16px;
+}
+.main-head .hl { font-weight: 900; }
+
+/* Hide comma before name if empty */
+.hl:not(:empty)::before { content: ", "; }
+
+/* ====== CTA BUTTON ====== */
+.cta {
+  --blue: #2b78ff;
+  display: inline-block;
+  background: var(--blue);
+  color: #fff;
+  font-weight: 900;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  box-shadow: 0 8px 0 rgba(0,0,0,0.18);
+  transform: translateY(0);
+  transition: transform .1s ease, box-shadow .1s ease;
+  margin: 8px 0 24px 40px;
+}
+.cta:active {
+  transform: translateY(2px);
+  box-shadow: 0 6px 0 rgba(0,0,0,0.18);
+}
+
+/* ====== STATS ====== */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(220px, 1fr));
+  gap: 28px;
+  margin: 6px 0 22px;
+}
+.stat {
+  background: #fff;
+  border: 3px solid #000;
+  border-radius: 18px;
+  padding: 18px 16px 16px;
+  text-align: center;
+}
+.stat-title {
+  font-weight: 800;
+  color: #333;
+  margin-bottom: 10px;
+}
+.stat-num {
+  font-weight: 900;
+  font-size: 30px;
+}
+.stat-blue { color: #1261ff; }
+.stat-red { color: #e31e24; }
+.stat-amber { color: #F5B443; }
+.stat-green { color: #11B458; }
+
+/* ====== RECENT ACTIVITY ====== */
+.activity h3 {
+  font-weight: 900;
+  margin: 8px 0 10px;
+}
+.row {
+  display: grid;
+  grid-template-columns: 1fr 120px 90px;
+  gap: 14px;
+  align-items: center;
+  background: #fff;
+  border: 3px solid #000;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin: 8px 0;
+}
+.row-title { font-weight: 800; }
+.row-status { font-weight: 900; text-align: right; }
+.row-status.resolved { color: #11B458; }
+.row-status.pending { color: #e31e24; }
+.row-status.inprogress { color: #F5B443; }
+.row-status.assigned { color: #e31e24; }
+.row-status.actiontaken { color: #1261ff; }
+.row-date { text-align: right; font-weight: 800; }
+
+.view-all {
+  text-align: right;
+  margin-top: 8px;
+}
+.view-all a {
+  color: #1976ff;
+  font-weight: 900;
+  text-decoration: none;
+}
+.view-all a span { margin-left: 6px; }
+
+/* ====== EMPTY STATE FOR ACTIVITY ====== */
+.empty-note {
+  background: #fff;
+  border: 3px solid #000;
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-weight: 800;
+  color: #666;
+  margin: 8px 0;
+  text-align: center;
+}
+
+/* ====== RESPONSIVE ADJUSTMENTS ====== */
+@media (max-width:1100px) {
+  .dash-shell { grid-template-columns: 280px 1fr; }
+  .main-head h1 { font-size: 28px; }
+  .stats-row { grid-template-columns: repeat(2, minmax(220px, 1fr)); }
+}
+@media (max-width:720px) {
+  .dash-shell { grid-template-columns: 1fr; }
+  .cta { margin-left: 0; }
+  .stats-row { grid-template-columns: 1fr; }
+  .row { grid-template-columns: 1fr auto; }
+  .row-date { display: none; }
+}
+
+
+/* ====== ROLE-BASED VISIBILITY ======
+   Hide all role-specific elements by default; show when body class is applied.
+*/
+.student-only, .admin-only, .tech-only { display: none; }
+
+.role-student .student-only { display: inline-block; }
+.role-admin   .admin-only   { display: inline-block; }
+.role-tech    .tech-only    { display: inline-block; }
+
+.hidden { display: none !important; }
